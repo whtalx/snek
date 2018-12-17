@@ -1,0 +1,374 @@
+﻿@font-face {font-family: "DS-Digital";
+    src: url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.eot");
+    src: url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.eot?#iefix") format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.woff2") format("woff2"),
+    url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.svg#DS-Digital") format("svg");
+}
+@font-face {font-family: "Carr Arrows (filled)";
+    src: url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.eot");
+    src: url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.eot?#iefix") format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.woff2") format("woff2"),
+    url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.svg#Carr Arrows (filled)") format("svg");
+}
+@keyframes blink {
+    from {background: #313729; outline-color: #313729; background-clip: content-box;}
+    to {background: #7E916C; outline-color: #7E916C; background-clip: content-box;}
+}
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #d9dbc5;
+    margin:0;
+    padding: 0;
+    user-select:none;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    -o-user-select:none;
+    -ms-user-select:none;
+    -khtml-user-select:none;
+}
+body div {
+    margin:0;
+    padding: 0;
+    line-height: 0;
+}
+.screen {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    -moz-box-shadow: 1px 1px 4px 0 #313729, 4px 0 4px 0 #f8f9e3, -4px 0 4px 0 #97998c;
+    -webkit-box-shadow: 1px 1px 4px 0 #313729, 4px 0 4px 0 #f8f9e3, -4px 0 4px 0 #97998c;
+    box-shadow:inset 1px 1px 4px 0 #313729, 4px 0 4px 0 #f8f9e3, -4px 0 4px 0 #97998c;
+}
+.screenBorder {
+    display: block;
+    position: static;
+    background-color: #909D83;
+    margin: 10px auto 0;
+    width: 42vh;
+    height: 58vh;
+    min-width: 168px;
+    min-height: 234px;
+    border-width: 10px;
+    border-style: solid;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border-top-color: #d6d8c3;
+    border-left-color: #bdbfae;
+    border-bottom-color: #caccb7;
+    border-right-color: #e3e5ce;
+    z-index: -1;
+}
+.display {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    float: left;
+    width: 27.75vh;
+    height: 94%;
+    min-width: 111px;
+    min-height: 220px;
+    outline: 2px solid #313729;
+    margin: 4% 0 4% 3%;
+    padding: 1%;
+}
+#pixel {
+    display: inline-block;
+    width: 1.25vh;
+    height: 1.25vh;
+    min-width: 5px;
+    min-height: 5px;
+    margin: 1.8%;
+    padding: .9%;
+    background-color: #7E916C;
+    background-clip: content-box;
+    outline: 1px solid #7E916C;
+    position: static;    
+}
+#pixel[status="on"] {
+    outline-color: #313729;
+    background-color: #313729;
+    background-clip: content-box;
+}
+#pixel[blink="on"] {
+    animation-name: blink;
+    animation-duration: .2s;
+    animation-iteration-count: infinite;
+}
+.side {
+    position: relative;
+    float: right;
+    width: 10vh;
+    height: 55vh;
+    min-width: 40px;
+    min-height: 222px;
+    margin: 2% 3% 2% 0;
+}
+.side div {
+    position: relative;
+    text-align: center;
+    font-family: arial;
+    font-style: italic;
+    font-size: 7px;
+    line-height: 15px;
+    margin-bottom: 5px;
+}
+.side p {
+    margin: 0;
+    font-style: normal;
+    position: relative;
+    line-height: 15px;    
+}
+.level {
+    margin-top: 12px;
+}
+#score, #hi-score {
+    font-family: "DS-Digital";
+    font-size: 14px;
+}
+#level {
+    font-family: "DS-Digital";
+    font-size: 25px;
+}
+#speed {
+    font-family: "DS-Digital";
+    font-size: 25px;
+    margin-top: 15px;
+}
+#pause {
+    color: #7E916C;
+    margin-top: 25px;
+}
+#pause p {
+    font-size: 25px;
+    margin-top: 10px;
+}
+.controls {
+    position: relative;
+    margin: 5px auto 0;
+    width: 42vh;
+    height: 0;
+    min-width: 168px;
+}
+.controls p{
+    text-align: center;
+    margin: 0;
+    color: white;
+    font: bold small-caps 14px Tahoma, Geneva, sans-serif;
+    text-shadow: 0 0 2px #8b8c81;
+}
+.start, .pause {
+    z-index: 2;
+    position: relative;
+    margin-left: 5%;
+    cursor:pointer;
+    display: inline-block;
+    background-color:#f6f674;
+    height: 10px;
+    width: 30px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    transition:.1s ease-out;
+    -moz-transition: .1s ease-out;
+    -o-transition: .1s ease-out;
+    -webkit-transition:.1s ease-out;
+    -webkit-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+    -moz-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+    -o-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+    transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+    border-bottom: 1px solid #99995b;
+    border-right: 1px solid #99995b;
+    -moz-box-shadow:inset 0 -1px 1px 0 #595951, 1px 1px 1px 1px #caccb7;
+    -webkit-box-shadow:inset 0 -1px 1px 0 #595951, 1px 1px 1px 1px #caccb7;
+    box-shadow:inset 0 -1px 1px 0 #595951, 1px 1px 1px 1px #caccb7;
+}
+.start:active, .pause:active {
+    background-color:#f6f674;
+    -moz-box-shadow:inset 0 1px 1px 0 #3f3f39, 0 1px 1px 0 #fff;
+    -webkit-box-shadow:inset 0 1px 1px 0 #3f3f39, 0 1px 1px 0 #fff;
+    box-shadow:inset 0 1px 1px 0 #3f3f39, 0 1px 1px 0 #fff;
+}
+.start[pressed="true"], .pause[pressed="true"] {
+    background-color:#f6f674;
+    -moz-box-shadow:inset 0 1px 1px 0 #3f3f39, 0 1px 1px 0 #fff;
+    -webkit-box-shadow:inset 0 1px 1px 0 #3f3f39, 0 1px 1px 0 #fff;
+    box-shadow:inset 0 1px 1px 0 #3f3f39, 0 1px 1px 0 #fff;
+}
+.arrows {
+    position: relative;
+    margin: 0 auto;
+    width: 30vh;
+    height: 30vh;
+    min-width: 120px;
+    min-height: 120px;
+}
+.button {
+    z-index: 2;
+    cursor:pointer;
+    background-color:#f6f674;
+    height: 10vh;
+    width: 10vh;
+    min-height: 40px;
+    min-width: 40px;
+    position: relative;
+    transition:.1s ease-out;
+    -moz-transition: .1s ease-out;
+    -o-transition: .1s ease-out;
+    -webkit-transition:.1s ease-out;
+    -webkit-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+    -moz-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+    -o-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+    transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    border-bottom: 1px solid #99995b;
+    border-right: 1px solid #99995b;
+    -moz-box-shadow:inset 0 -1px 2px 0 #3f3f39, 1px 1px 1px 1px #caccb7;
+    -webkit-box-shadow:inset 0 -1px 2px 0 #3f3f39, 1px 1px 1px 1px #caccb7;
+    box-shadow:inset 0 -1px 2px 0 #3f3f39, 1px 1px 1px 1px #caccb7;
+}
+.button:active {
+    background-color:#f6f674;
+    -moz-box-shadow:inset 0 1px 2px 0 #3f3f39, 0 2px 1px 0 #fff;
+    -webkit-box-shadow:inset 0 1px 2px 0 #3f3f39, 0 2px 1px 0 #fff;
+    box-shadow:inset 0 1px 2px 0 #3f3f39, 0 2px 1px 0 #fff;
+}
+.button[pressed="true"] {
+    background-color:#f6f674;
+    -moz-box-shadow:inset 0 1px 2px 0 #3f3f39, 0 2px 1px 0 #fff;
+    -webkit-box-shadow:inset 0 1px 2px 0 #3f3f39, 0 2px 1px 0 #fff;
+    box-shadow:inset 0 1px 2px 0 #3f3f39, 0 2px 1px 0 #fff;
+}
+.cross {
+    position: relative;
+    height: 7.5vh;
+    width: 7.5vh;
+    min-height: 30px;
+    min-width: 30px;
+    margin: 12.5% auto;
+    text-align: center;
+    color: white;
+    font: bold 30px "Carr Arrows (filled)";
+    text-shadow: 0 0 2px #8b8c81;
+}
+@media all and (min-height: 400px) {
+  .screen {
+      -moz-box-shadow: .25vh .25vh 1vh 0 #313729, 1vh 0 1vh 0 #f8f9e3, -1vh 0 1vh 0 #97998c;
+      -webkit-box-shadow: .25vh .25vh 1vh 0 #313729, 1vh 0 1vh 0 #f8f9e3, -1vh 0 1vh 0 #97998c;
+      box-shadow:inset .25vh .25vh 1vh 0 #313729, 1vh 0 1vh 0 #f8f9e3, -1vh 0 1vh 0 #97998c;
+  }
+  .screenBorder {
+      margin: 2.5vh auto 0;
+      border-width: 2.5vh;
+      -moz-border-radius: 1.25vh;
+      -webkit-border-radius: 1.25vh;
+      border-radius: 1.25vh;
+  }
+  .display {
+      outline: .5vh solid #313729;
+  }
+  #pixel {
+      outline: .4vh solid #7E916C;
+  }
+  .side div {
+      font-size: 1.75vh;
+      line-height: 3.75vh;
+      margin-bottom: 1.25vh;
+  }
+  .side p {
+      line-height: 3.75vh;
+  }
+  .level {
+      margin-top: 3vh;
+  }
+  #score, #hi-score {
+      font-size: 3.5vh;
+  }
+  #level {
+      font-size: 6.25vh;
+  }
+  #speed {
+      font-size: 6.25vh;
+      margin-top: 3.75vh;
+  }
+  #pause {
+      color: #7E916C;
+      margin-top: 6vh;
+  }
+  #pause p {
+      font-size: 6.25vh;
+      margin-top: 2.5vh;
+  }
+  .controls {
+      margin-top: 1.25vh;
+}
+  .controls p{
+      font: bold small-caps 3.5vh Tahoma, Geneva, sans-serif;
+      text-shadow: 0 0 .5vh #8b8c81;
+  }
+  .start, .pause {
+      height: 2.5vh;
+      width: 7.5vh;
+      -moz-border-radius: 2.5vh;
+      -webkit-border-radius: 2.5vh;
+      border-radius: 2.5vh;
+      border-bottom: .25vh solid #99995b;
+      border-right: .25vh solid #99995b;
+      -webkit-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+      -moz-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+      -o-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+      transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+      -moz-box-shadow:inset 0 -.25vh .25vh 0 #595951, .25vh .25vh .25vh .25vh #caccb7;
+      -webkit-box-shadow:inset 0 -.25vh .25vh 0 #595951, .25vh .25vh .25vh .25vh #caccb7;
+      box-shadow:inset 0 -.25vh .25vh 0 #595951, .25vh .05vh .25vh .25vh #caccb7;
+  }
+  .start:active, .pause:active {
+      background-color:#f6f674;
+      -moz-box-shadow:inset 0 .25vh .25vh 0 #3f3f39, 0 .25vh .25vh 0 #fff;
+      -webkit-box-shadow:inset 0 .25vh .25vh 0 #3f3f39, 0 .25vh .25vh 0 #fff;
+      box-shadow:inset 0 .25vh .25vh 0 #3f3f39, 0 .25vh .25vh 0 #fff;
+  }
+  .start[pressed="true"], .pause[pressed="true"] {
+      background-color:#f6f674;
+      -moz-box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
+      -webkit-box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
+      box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
+  }
+  .button {
+      border-bottom: .25vh solid #99995b;
+      border-right: .25vh solid #99995b;
+      -webkit-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+      -moz-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+      -o-transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+      transition-property: box-shadow, -moz-box-shadow, -webkit-box-shadow;
+      -moz-box-shadow:inset 0 -.25vh .5vh 0 #3f3f39, .25vh .25vh .25vh .25vh #caccb7;
+      -webkit-box-shadow:inset 0 -.25vh .5vh 0 #3f3f39, .25vh .25vh .25vh .25vh #caccb7;
+      box-shadow:inset 0 -.25vh .5vh 0 #3f3f39, .25vh .25vh .25vh .25vh #caccb7;
+  }
+  .button:active {
+      background-color:#f6f674;
+      -moz-box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
+      -webkit-box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
+      box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
+  }
+  .button[pressed="true"] {
+      background-color:#f6f674;
+      -moz-box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
+      -webkit-box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
+      box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
+  }
+  .cross {
+      font-size: 7.5vh;
+      text-shadow: 0 0 .5vh #8b8c81;
+  }
+}

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>snek</title>
+    <meta name="viewport" content="min-height=400">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="snek.js"></script>
+    <link href="snek.css" rel="stylesheet" type="text/css" />
+    <link href="http://db.onlinewebfonts.com/c/223f224650510797e0f06233d2a0f97b?family=DS-Digital" rel="stylesheet" type="text/css"/>
+    <link href="http://db.onlinewebfonts.com/c/3928ae784fb603115135841040b5c3a6?family=Carr+Arrows+(filled)" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <div class="screenBorder">
+      <div class="screen">
+        <div class="display"></div>
+        <div class="side">
+          <div>SCORE<p id="score"></p></div>
+          <div>HI-SCORE<p id="hi-score"></p></div>
+          <div class="level">LEVEL<p id="level"></p></div>
+          <div><p id="speed"></p>SPEED</div>
+          <div id="pause">PAUSE<p>&#x2615;&#xfe0e;</p></div>
+        </div>
+      </div>
+    </div>	
+    <div class="controls">
+      <div style="display: inline-block; float: left;"><div class="start"></div><p>start</p></div>
+      <div style="display: inline-block; float: right;"><div class="pause"></div><p>pause</p></div>
+    </div>
+    <div class="arrows">
+      <div style="position: absolute; float: left; top: 33%;">
+        <div class="button" id="left"></div>
+      </div>
+      <div style="position: absolute; left: 33%;">
+        <div class="button" id="up"></div>
+        <div class="cross">(</div>
+        <div class="button" id="down"></div>
+      </div>
+      <div style="position: absolute; float: right; top: 33%; left: 66%;">
+        <div class="button" id="right"></div>
+      </div>
+    </div>
+  </body>
+</html>
