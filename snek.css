@@ -259,7 +259,7 @@ body div {
     text-align: center;
     color: white;
     font: bold 30px "Carr Arrows (filled)";
-    text-shadow: 0 0 2px #8b8c81;
+  /*  text-shadow: 0 0 2px #8b8c81; */
 }
 @media all and (min-height: 400px) {
   .screen {
@@ -369,6 +369,6 @@ body div {
   }
   .cross {
       font-size: 7.5vh;
-      text-shadow: 0 0 .5vh #8b8c81;
+    /*  text-shadow: 0 0 .5vh #8b8c81;*/
   }
 }
