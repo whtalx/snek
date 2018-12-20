@@ -1,18 +1,14 @@
-﻿@font-face {font-family: "DS-Digital";
-    src: url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.eot");
-    src: url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.eot?#iefix") format("embedded-opentype"),
-    url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.woff2") format("woff2"),
-    url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.woff") format("woff"),
-    url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.ttf") format("truetype"),
-    url("//db.onlinewebfonts.com/t/223f224650510797e0f06233d2a0f97b.svg#DS-Digital") format("svg");
+@font-face {font-family: "DS-Digital";
+	src: url("fonts/DS-Digital.woff2") format("woff2"),
+		 url("fonts/DS-Digital.woff") format("woff"),
+		 url("fonts/DS-Digital.ttf") format("truetype"),
+		 url("fonts/DS-Digital.svg#DS-Digital") format("svg");
 }
-@font-face {font-family: "Carr Arrows (filled)";
-    src: url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.eot");
-    src: url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.eot?#iefix") format("embedded-opentype"),
-    url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.woff2") format("woff2"),
-    url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.woff") format("woff"),
-    url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.ttf") format("truetype"),
-    url("//db.onlinewebfonts.com/t/3928ae784fb603115135841040b5c3a6.svg#Carr Arrows (filled)") format("svg");
+@font-face {font-family: "Arrows";
+	src: url("fonts/Arrows.woff2") format("woff2"),
+		 url("fonts/Arrows.woff") format("woff"),
+		 url("fonts/Arrows.ttf") format("truetype"),
+		 url("fonts/Arrows.svg#Arrows") format("svg");
 }
 @keyframes blink {
     from {background: #313729; outline-color: #313729; background-clip: content-box;}
@@ -24,12 +20,12 @@ body {
     background-color: #d9dbc5;
     margin:0;
     padding: 0;
-    user-select:none;
     -moz-user-select:none;
     -webkit-user-select:none;
     -o-user-select:none;
     -ms-user-select:none;
     -khtml-user-select:none;
+    user-select:none;
 }
 body div {
     margin:0;
@@ -258,8 +254,8 @@ body div {
     margin: 12.5% auto;
     text-align: center;
     color: white;
-    font: bold 30px "Carr Arrows (filled)";
-  /*  text-shadow: 0 0 2px #8b8c81; */
+    font: bold 30px "Arrows";
+    text-shadow: 0 0 2px #8b8c81;
 }
 @media all and (min-height: 400px) {
   .screen {
@@ -369,6 +365,6 @@ body div {
   }
   .cross {
       font-size: 7.5vh;
-    /*  text-shadow: 0 0 .5vh #8b8c81;*/
+      text-shadow: 0 0 .5vh #8b8c81;
   }
 }
