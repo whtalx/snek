@@ -1,8 +1,8 @@
 ﻿$(function() {
 	var div,
-		snake = null,
+		snake = [],
 		dir = 1,		//moving direction. 1:right, 2:dowm, 3:left, 4:up
-		food = null,
+		food = [],
 		score = 0,
 		hiscore = 0,
 		level = 1,
@@ -13,13 +13,12 @@
 		snek = [],
 		snak = [],
 		que = $(".display"), //one queue for intro and death animations
-		t = null,
 		WIDTH = 9,		//screen WIDTH in <div> pixels
 		HEIGHT = 19,	//screen HEIGHT in <div> pixels
 		SP = 50,		//speed coefficient
 		SC = 25;		//score coefficient
 	
-	/*welcome animation snake*/
+	/*intro animation snake bitmap*/
 	snek[0] = [2,3,6,18];
 	snek[1] = [17,18];
 	snek[2] = [16,17,18];
@@ -58,7 +57,6 @@
 			$('.display').append(div);
 		}
 	}
-
 	welcome(); //intro animation autostart
 			
 	/* buttons actions. can't move in opposite direction
@@ -66,7 +64,7 @@
 	 * and change direction before snake use it
 	 * (to prevent change to 180deg by fast change in 90deg twice)
 	 */
-	$("#left").on("click", function() {
+	$("#left").mousedown(function() {
 		if ( alive &&
 			 dir === 0 &&
 			 d != 1 &&
@@ -78,7 +76,7 @@
 			}
 	});
 
-	$("#right").on("click", function() {
+	$("#right").mousedown(function() {
 		if ( alive &&
 			 dir === 0 &&
 			 d != 3 &&
@@ -90,7 +88,7 @@
 			}
 	});
 
-	$("#up").on("click", function() {
+	$("#up").mousedown(function() {
 		if ( alive &&
 			 dir === 0 &&
 			 d != 2 &&
@@ -98,12 +96,12 @@
 			 snake[snake.length - 1].y !== 0 &&
 			 paused !== true
 			) {
-				dir = 4;	
+				dir = 4;
 			} //else if (level < 9) {level ++; speed++; scores();} 
 			  //increase speed & level before game
 	});
 
-	$("#down").on("click", function() {
+	$("#down").mousedown(function() {
 		if ( alive &&
 			 dir === 0 &&
 			 d != 4 &&
@@ -114,15 +112,16 @@
 				dir = 2;
 			} //else if (level > 1) {level --; speed--; scores();}
 			  //decrease speed & level before game
+	
 	});
 
-	$(".pause").on("click", function() {
+	$(".pause").mousedown(function() {
 		if (!alive) return;
 		else if (paused !== true) pause();
 		else if (paused === true) resume();
 	});
-	$(".start").on("click", function() {
-		//check below make aviable change levels before game start
+	$(".start").mousedown(function() {
+		//check make aviable change levels before game start
 		if (alive) {level = 1; speed = 1;}
 		start();
 	});
@@ -131,28 +130,59 @@
 	 * ENTER for start and SPACEBAR for pause
 	 */
 	$("body").keydown(function(event) {
-		if (event.which == 39 || event.which == 68) {
-			$("#right").trigger("click").attr("pressed", "true");
-		}
-		if (event.which == 37 || event.which == 65) {
-			$("#left").trigger("click").attr("pressed", "true");
-		}
-		if (event.which == 38 || event.which == 87) {
-			$("#up").trigger("click").attr("pressed", "true");
-		}
-		if (event.which == 40 || event.which == 83) {
-			$("#down").trigger("click").attr("pressed", "true");
-		}
-		if (event.which == 13) {
-			$(".start").trigger("click").attr("pressed", "true");
-		}
-		if (event.which == 32) {
-			$(".pause").trigger("click").attr("pressed", "true");
+		switch (event.which) {
+			case 39:
+			case 68:
+				$("#right").trigger("mousedown").attr("pressed", "true");
+				break;
+			case 37:
+			case 65:
+				$("#left").trigger("mousedown").attr("pressed", "true");
+				break;
+			case 38:
+			case 87:
+				$("#up").trigger("mousedown").attr("pressed", "true");
+				break;
+			case 40:
+			case 83:
+				$("#down").trigger("mousedown").attr("pressed", "true");
+				break;
+			case 13:
+				$(".start").trigger("mousedown").attr("pressed", "true");
+				break;
+			case 32:
+				$(".pause").mousedown().attr("pressed", "true");
+				break;
+
 		}
 	});
 
 	$("body").keyup(function(event) {	//release keys on screen
-		$(".button, .start, .pause").attr("pressed", "");
+		switch (event.which) {
+			case 39:
+			case 68:
+				$("#right").attr("pressed", "");
+				break;
+			case 37:
+			case 65:
+				$("#left").attr("pressed", "");
+				break;
+			case 38:
+			case 87:
+				$("#up").attr("pressed", "");
+				break;
+			case 40:
+			case 83:
+				$("#down").attr("pressed", "");
+				break;
+			case 13:
+				$(".start").attr("pressed", "");
+				break;
+			case 32:
+				$(".pause").attr("pressed", "");
+				break;
+
+		}
 	});
 
 	function scores() {	//refresh scores
@@ -161,15 +191,14 @@
 		$("#level").html(("0" + level).slice(-2));
 		$("#speed").html(("0" + speed).slice(-2));
 	}
-	function on(x, y) {	//switch pixel on
-		$("[x = '" + x + "'][y = '" + y + "']").attr("status", "on");        
+	function pixel(x, y, s) {	//switch pixels on & off
+		$("[x = '" + x + "'][y = '" + y + "']").attr("status", s);        
 	}
-	function off(x, y) {	//switch pixel off
-		$("[x = '" + x + "'][y = '" + y + "']").attr("status", "");
-	}
-	function clrscr() {	//clear screen
-		que.clearQueue();
-		que.stop();
+	function clrscr(q) {	//clear screen & clear animation queue
+		if (q == "dequeue") {
+			que.clearQueue();
+			que.stop();
+		}
 		$("[status]").attr("status", "");
 		$("[blink]").attr("blink", "");
 	}
@@ -185,9 +214,9 @@
 	}
 	function start() {	//start game with default parameters
 		clearTimeout(game);
-		clrscr();
+		clrscr("dequeue");
 		newSnake();
-		newFood();
+		food = newFood();
 		score = 0;
 		dir = 1;
 		alive = true;
@@ -212,45 +241,40 @@
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 	function newFood() {	//create food
-		food = [rnd(0, WIDTH), rnd(0, HEIGHT)];
-		snake.forEach(function(k, i) {
-			//check if food appears in snake, make new food
-			if (food.x == k.x && food.y == k.y) newFood();
-		});
+		var f = [rnd(0, WIDTH), rnd(0, HEIGHT)];
+		return f;
 	}
 	function newSnake() {	//create default snake
 		snake = [{x: 1, y: 9}, {x: 2, y: 9}, {x: 3, y: 9}];
 	}
+
+	/* sometimes this functions weren't loaded in time,
+	 * so declare them out of explode()
+	 */
+
+	function medium(x, y, s) {
+		for (i = -1; i < 2; i++) {
+			for (j = -1; j < 2; j++) {
+				pixel((x+i), (y+j), s);
+			}
+		}
+	}
+
+	function big(x, y, s) {
+		for (i = -2; i < 3; i++) {
+			if (Math.abs(i % 2) === 0) {
+				for (j = -2; j < 3; j++) {
+					if (Math.abs(j % 2) === 0) {
+						pixel((x+i), (y+j), s);
+					}
+				}
+			}
+		}
+	}
 	function explode(x, y) {	//death animation
-		function small(x, y, s) { //should make loops
-			$("[x = '" + (x) + "'][y = '" + (y) + "']").attr("status", s);
-		}
-
-		function medium(x, y, s) {
-			$("[x = '" + (x-1) + "'][y = '" + (y-1) + "']").attr("status", s);
-			$("[x = '" + (x) + "'][y = '" + (y-1) + "']").attr("status", s);
-			$("[x = '" + (x+1) + "'][y = '" + (y-1) + "']").attr("status", s);
-			$("[x = '" + (x-1) + "'][y = '" + (y) + "']").attr("status", s);
-			$("[x = '" + (x+1) + "'][y = '" + (y) + "']").attr("status", s);
-			$("[x = '" + (x-1) + "'][y = '" + (y+1) + "']").attr("status", s);
-			$("[x = '" + (x) + "'][y = '" + (y+1) + "']").attr("status", s);
-			$("[x = '" + (x+1) + "'][y = '" + (y+1) + "']").attr("status", s);
-		}
-
-		function big(x, y, s) {
-			$("[x = '" + (x-2) + "'][y = '" + (y-2) + "']").attr("status", s);
-			$("[x = '" + (x) + "'][y = '" + (y-2) + "']").attr("status", s);
-			$("[x = '" + (x+2) + "'][y = '" + (y-2) + "']").attr("status", s);
-			$("[x = '" + (x-2) + "'][y = '" + (y) + "']").attr("status", s);
-			$("[x = '" + (x+2) + "'][y = '" + (y) + "']").attr("status", s);
-			$("[x = '" + (x-2) + "'][y = '" + (y+2) + "']").attr("status", s);
-			$("[x = '" + (x) + "'][y = '" + (y+2) + "']").attr("status", s);
-			$("[x = '" + (x+2) + "'][y = '" + (y+2) + "']").attr("status", s);
-		}
-
 		for (i=0; i<3; i++) {
 			que.queue(function () {
-				small(x, y, "on");
+				pixel(x, y, "on");
 				que.dequeue();
 			});
 			que.delay(100).queue(function () {
@@ -262,7 +286,7 @@
 				que.dequeue();
 			});
 			que.delay(100).queue(function () {
-				small(x, y, "");
+				pixel(x, y, "");
 				que.dequeue();
 			});
 			que.queue(function () {
@@ -275,11 +299,11 @@
 			});
 		}
 		que.queue(function () {
-			$("[status]").attr("status", "");
-			$("[blink]").attr("blink", "");
+			clrscr();
 			que.dequeue();
 		});
 	}
+
 	function welcome() {	//intro animation with loop
 		level = 1;
 		speed = 1;
@@ -287,8 +311,7 @@
 		for (i=0; i <= 4; i++) spiral(i, WIDTH-i, i, HEIGHT-i);
 		setTimeout(function(){
 			que.queue(function() {
-				$("[status]").attr("status", "");
-				$("[blink]").attr("blink", "");
+				clrscr();
 				que.dequeue();
 			});
 			slither();
@@ -361,7 +384,7 @@
 				if (alive) return;
 				jQuery.each(snak, function(indexX, valueX) {
 					jQuery.each(snak[indexX], function(indexY, valueY) {
-						on(indexX, valueY);
+						pixel(indexX, valueY, "on");
 					});
 				});
 				que.dequeue();
@@ -370,7 +393,7 @@
 				if (alive) return;
 				jQuery.each(snak, function(indexX, valueX) {
 					jQuery.each(snak[indexX], function(indexY, valueY) {
-						off(indexX, valueY);
+						pixel(indexX, valueY, "");
 					});
 				});
 				que.dequeue();
@@ -379,7 +402,7 @@
 				if (alive) return;
 				jQuery.each(snek, function(indexX, valueX) {
 					jQuery.each(snek[indexX], function(indexY, valueY) {
-						on(indexX, valueY);
+						pixel(indexX, valueY, "on");
 					});
 				});
 				que.dequeue();
@@ -388,7 +411,7 @@
 				if (alive) return;
 				jQuery.each(snek, function(indexX, valueX) {
 					jQuery.each(snek[indexX], function(indexY, valueY) {
-						off(indexX, valueY);
+						pixel(indexX, valueY, "");
 					});
 				});
 				que.dequeue();
@@ -401,19 +424,12 @@
 		}
 	}
 	function play() {	//finally, the game
-		on(food[0], food[1]);	// draw food
-		scores();
-
-		//checking for snake bite itself
 		snake.forEach(function(k, i) {
-			var last = snake.length - 1;
-			if ( k.x == snake[last].x &&
-				 k.y == snake[last].y &&
-				 i < last
-				) {
-				gameOver(k.x, k.y);
-				}
+			//check if food appears in snake, make new food
+			if (food[0] == k.x && food[1] == k.y) food = newFood();
 		});
+		pixel(food[0], food[1], "on");	// draw food
+		scores();
 
 		var tail = snake[0],
 			coor = {x: tail.x, y: tail.y},
@@ -428,39 +444,51 @@
 		if (d == 3) {coor.x = head.x - 1; coor.y = head.y; dir = 0;}
 		if (d == 4) {coor.y = head.y - 1; coor.x = head.x; dir = 0;}
 
-		//move tail to the head coordinates
-		snake.push(coor);
 		//remove tail
 		snake.shift();
-		off(tail.x, tail.y);
+		pixel(tail.x, tail.y, "");
+
+		//checking for snake bite itself
+		snake.forEach(function(k, i) {
+			if ( k.x == coor.x &&
+				 k.y == coor.y
+				) {
+				gameOver(k.x, k.y);
+				}
+		});
+
+		//move tail to the next coordinates
+		snake.push(coor);
 
 		//make head blink
 		$("[x = '" + snake[prel].x + "'][y = '" + snake[prel].y + "']")
 			.attr("blink", "");
-		$("[x = '" + snake[last].x + "'][y = '" + snake[last].y + "']")
+		$("[x = '" + coor.x + "'][y = '" + coor.y + "']")
 			.attr("blink", "on");
+
+		//border cross gameover
+		if (coor.x > WIDTH) {
+			gameOver((snake[last].x - 1), snake[last].y);
+		}
+		if (coor.x < 0) {
+			gameOver((snake[last].x + 1), snake[last].y);
+		}
+		if (coor.y > HEIGHT) {
+			gameOver(snake[last].x, (snake[last].y - 1));
+		}
+		if (coor.y < 0) {
+			gameOver(snake[last].x, (snake[last].y + 1));
+		}
+
+		//grow if eating food, make new food
+		if (coor.x == food[0] && coor.y == food[1]) {
+			food = newFood();
+			snake.unshift({x: snake[last].x, y: snake[last].y});
+			levelUp();
+		}
 		
-		snake.forEach(function(e, i) {
-			on(e.x, e.y);
-			//border cross gameover
-			if (d == 1 && e.x > WIDTH) {
-				gameOver((snake[last].x - 1), snake[last].y);
-			}
-			if (d == 2 && e.y > HEIGHT) {
-				gameOver(snake[last].x, (snake[last].y-1));
-			}
-			if (d == 3 && e.x < 0) {
-				gameOver((snake[last].x+1), snake[last].y);
-			}
-			if (d == 4 && e.y < 0) {
-				gameOver(snake[last].x, (snake[last].y+1));
-			}
-			//grow if eating food, make new food
-			if (e.x == food[0] && e.y == food[1]) {
-				newFood();
-				snake.unshift({x: e.x - 1, y: e.y});
-				levelUp();
-			}
+		snake.forEach(function(e, j) {
+			pixel(e.x, e.y, "on");
 		});
 		if (alive) resume();	//play until alive
 	}
