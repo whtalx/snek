@@ -41,12 +41,18 @@
 	snak[9] = [3,12,13];
 
 	//save & get hi-scores from local storage
-	if (typeof(Storage) !== "undefined") {
+	if(!localStorage) {
+		localStorage.setItem('hiscore', hiscore);
+	} else {
+		if (localStorage.getItem('hiscore') > hiscore) hiscore = localStorage.getItem('hiscore');
+	}
+/*
+	if (Storage.length !== 0) {
 		if (localStorage.hiscore > hiscore) hiscore = localStorage.hiscore;
 	} else {
 		localStorage.setItem("hiscore", hiscore);
 	}
-
+*/
 	//draw pixels on display
 	for (y = 0; y <= HEIGHT; y++) {
 		for (x = 0; x <= WIDTH; x++) {
