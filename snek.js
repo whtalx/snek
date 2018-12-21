@@ -44,7 +44,7 @@
 	if(!localStorage.getItem('hiscore')) {
 		localStorage.setItem('hiscore', hiscore);
 	} else {
-		if (localStorage.getItem('hiscore') > hiscore) hiscore = localStorage.getItem('hiscore');
+		if (localStorage.getItem('hiscore') > hiscore) hiscore = Math.trunc(localStorage.getItem('hiscore'));
 	}
 /*
 	if (Storage.length !== 0) {
