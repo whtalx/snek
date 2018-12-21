@@ -41,7 +41,7 @@
 	snak[9] = [3,12,13];
 
 	//save & get hi-scores from local storage
-	if(!localStorage) {
+	if(!localStorage.getItem('hiscore')) {
 		localStorage.setItem('hiscore', hiscore);
 	} else {
 		if (localStorage.getItem('hiscore') > hiscore) hiscore = localStorage.getItem('hiscore');
