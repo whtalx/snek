@@ -366,7 +366,7 @@ body div {
       box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
   }
   .cross {
-      font-size: 7.5vh;
+      font: bold 7.5vh "Arrows";
       text-shadow: 0 0 .5vh #8b8c81;
   }
 }
