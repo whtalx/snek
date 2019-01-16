@@ -213,11 +213,11 @@
 	function pause() {	//stop game without changing parameters
 		clearTimeout(game);
 		paused = true;
-		$('#pause').css("color", "#313729");
+		$('#pause').css("color", "#313729").css("fill", "#313729");
 	}
 	function resume() {	//start game with existing parameters
 		game = setTimeout(play, 600 - (speed * SP));
-		$('#pause').css("color", "#7E916C");
+		$('#pause').css("color", "#7E916C").css("fill", "#7E916C");
 		paused = false;
 	}
 	function start() {	//start game with default parameters

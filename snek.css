@@ -6,15 +6,9 @@
 		 url("fonts/DS-Digital.ttf") format("truetype"),
 		 url("fonts/DS-Digital.svg") format("svg");
 }
-@font-face {font-family: "Arrows";
-	src:	url("fonts/Arrows.woff2") format("woff2"),
-		url("fonts/Arrows.woff") format("woff"),
-		url("fonts/Arrows.ttf") format("truetype"),
-		url("fonts/Arrows.svg") format("svg");
-}
 @keyframes blink {
-    from {background: #313729; outline-color: #313729; background-clip: content-box;}
-    to {background: #7E916C; outline-color: #7E916C; background-clip: content-box;}
+    from {background-color: #313729;}
+    to {background-color: #7E916C;}
 }
 body {
     width: 100%;
@@ -34,28 +28,56 @@ body div {
     padding: 0;
     line-height: 0;
 }
+img[src$=".svg"] {
+    width: 100%;
+    height: 100%;
+}
+fieldset {
+    display: block;
+    position: static;
+    width: 0;
+    margin: 5px auto 0;
+    padding: 0 3.5px 3.5px;
+    border: 2px solid #911;
+}
+
+legend {
+    margin: 0 auto;
+    font-family: impact;
+    height: 4vh;
+    width: 24vh;
+    min-height: 16px;
+    min-width: 96px;
+    background-size: 100% 100%;
+    background-image: url('./media/snek.svg');
+    border-left: 5px solid #d9dbc5;
+    border-right: 5px solid #d9dbc5;
+}
 .screen {
     width: 100%;
     height: 100%;
     position: relative;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     -moz-box-shadow: 1px 1px 4px 0 #313729, 4px 0 4px 0 #f8f9e3, -4px 0 4px 0 #97998c;
     -webkit-box-shadow: 1px 1px 4px 0 #313729, 4px 0 4px 0 #f8f9e3, -4px 0 4px 0 #97998c;
     box-shadow:inset 1px 1px 4px 0 #313729, 4px 0 4px 0 #f8f9e3, -4px 0 4px 0 #97998c;
 }
 .screenBorder {
     display: block;
-    position: static;
+    position: relative;
     background-color: #909D83;
-    margin: 10px auto 0;
+    margin: 0 auto;
     width: 42vh;
     height: 58vh;
     min-width: 168px;
     min-height: 234px;
     border-width: 10px;
     border-style: solid;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     border-top-color: #d6d8c3;
     border-left-color: #bdbfae;
     border-bottom-color: #caccb7;
@@ -80,21 +102,17 @@ body div {
 }
 #pixel {
     display: inline-block;
-    width: 1.25vh;
-    height: 1.25vh;
-    min-width: 5px;
-    min-height: 5px;
-    margin: 1.8%;
-    padding: .9%;
+    width: 2.75vh;
+    height: 2.75vh;
+    min-width: 11px;
+    min-height: 11px;
+    background-image: url('./media/pixel.svg');
+    background-size: 100% 100%;
     background-color: #7E916C;
-    background-clip: content-box;
-    outline: 1px solid #7E916C;
     position: static;    
 }
 #pixel[status="on"] {
-    outline-color: #313729;
     background-color: #313729;
-    background-clip: content-box;
 }
 #pixel[blink="on"] {
     animation-name: blink;
@@ -109,6 +127,7 @@ body div {
     min-width: 40px;
     min-height: 222px;
     margin: 2% 3% 2% 0;
+    color: #313729;
 }
 .side div {
     position: relative;
@@ -135,23 +154,29 @@ body div {
 #level {
     font-family: "DS-Digital";
     font-size: 25px;
+    margin-top: 4px;
 }
 #speed {
     font-family: "DS-Digital";
     font-size: 25px;
     margin-top: 15px;
+    margin-bottom: 4px;
 }
 #pause {
     color: #7E916C;
-    margin-top: 25px;
+    fill: #7E916C;
+    margin-top: 20px;
 }
-#pause p {
-    font-size: 25px;
-    margin-top: 10px;
+#pause svg {
+    height: 5vh;
+    width: 5vh;
+    min-height: 25px;
+    min-width: 25px;
+    margin-top: 4px;
 }
 .controls {
     position: relative;
-    margin: 5px auto 0;
+    margin: 3.5px auto 0;
     width: 42vh;
     height: 0;
     min-width: 168px;
@@ -204,19 +229,19 @@ body div {
 .arrows {
     position: relative;
     margin: 0 auto;
-    width: 30vh;
-    height: 30vh;
-    min-width: 120px;
-    min-height: 120px;
+    width: 27vh;
+    height: 27vh;
+    min-width: 108px;
+    min-height: 108px;
 }
 .button {
     z-index: 2;
     cursor:pointer;
     background-color:#f6f674;
-    height: 10vh;
-    width: 10vh;
-    min-height: 40px;
-    min-width: 40px;
+    height: 9vh;
+    width: 9vh;
+    min-height: 36px;
+    min-width: 36px;
     position: relative;
     transition:.1s ease-out;
     -moz-transition: .1s ease-out;
@@ -249,34 +274,42 @@ body div {
 }
 .cross {
     position: relative;
-    height: 7.5vh;
-    width: 7.5vh;
-    min-height: 30px;
-    min-width: 30px;
-    margin: 12.5% auto;
-    text-align: center;
-    color: white;
-    font: bold 30px "Arrows";
-    text-shadow: 0 0 2px #8b8c81;
+    height: 9vh;
+    width: 9vh;
+    min-height: 36px;
+    min-width: 36px;
+    background-image: url('./media/cross.svg');
+    background-size: 100% 100%;
 }
 @media all and (min-height: 400px) {
+  fieldset {
+      margin-top: 1.25vh;
+      padding: 0 1vh 1vh;
+      border-width: .5vh;
+      font-size: 4vh;
+  }
+
+  legend {
+      border-left-width: 1.25vh;
+      border-right-width: 1.25vh;
+  }
   .screen {
-      -moz-box-shadow: .25vh .25vh 1vh 0 #313729, 1vh 0 1vh 0 #f8f9e3, -1vh 0 1vh 0 #97998c;
-      -webkit-box-shadow: .25vh .25vh 1vh 0 #313729, 1vh 0 1vh 0 #f8f9e3, -1vh 0 1vh 0 #97998c;
+      -moz-border-radius: .5vh;
+      -webkit-border-radius: .5vh;
+      border-radius: .5vh;
+      -moz-box-shadow:inset .25vh .25vh 1vh 0 #313729, 1vh 0 1vh 0 #f8f9e3, -1vh 0 1vh 0 #97998c;
+      -webkit-box-shadow:inset .25vh .25vh 1vh 0 #313729, 1vh 0 1vh 0 #f8f9e3, -1vh 0 1vh 0 #97998c;
       box-shadow:inset .25vh .25vh 1vh 0 #313729, 1vh 0 1vh 0 #f8f9e3, -1vh 0 1vh 0 #97998c;
   }
   .screenBorder {
-      margin: 2.5vh auto 0;
+      margin: 0 auto;
       border-width: 2.5vh;
-      -moz-border-radius: 1.25vh;
-      -webkit-border-radius: 1.25vh;
-      border-radius: 1.25vh;
+      -moz-border-radius: .5vh;
+      -webkit-border-radius: .5vh;
+      border-radius: .5vh;
   }
   .display {
       outline: .5vh solid #313729;
-  }
-  #pixel {
-      outline: .4vh solid #7E916C;
   }
   .side div {
       font-size: 1.75vh;
@@ -294,22 +327,23 @@ body div {
   }
   #level {
       font-size: 6.25vh;
+      margin-top: 1vh;
   }
   #speed {
       font-size: 6.25vh;
       margin-top: 3.75vh;
+      margin-bottom: 1vh;
   }
   #pause {
       color: #7E916C;
-      margin-top: 6vh;
+      margin-top: 5vh;
   }
-  #pause p {
-      font-size: 6.25vh;
-      margin-top: 2.5vh;
+  #pause svg {
+      margin-top: 1vh;
   }
   .controls {
-      margin-top: 1.25vh;
-}
+      margin-top: 1vh;
+    }
   .controls p{
       font: bold small-caps 3.5vh Tahoma, Geneva, sans-serif;
       text-shadow: 0 0 .5vh #8b8c81;
@@ -364,9 +398,5 @@ body div {
       -moz-box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
       -webkit-box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
       box-shadow:inset 0 .25vh .5vh 0 #3f3f39, 0 .5vh .25vh 0 #fff;
-  }
-  .cross {
-      font: bold 7.5vh "Arrows";
-      text-shadow: 0 0 .5vh #8b8c81;
   }
 }
