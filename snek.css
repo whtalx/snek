@@ -107,7 +107,7 @@ legend {
     min-width: 11px;
     min-height: 11px;
     background-image: url('./media/pixel.svg');
-    background-size: 100% 100%;
+/*    background-size: 100% 100%; */
     background-color: #7E916C;
     position: static;    
 }
