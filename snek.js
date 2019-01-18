@@ -12,11 +12,14 @@
 		paused = null,
 		snek = [],
 		snak = [],
+		key = {},
+		timer,
 		que = $(".display"), //one queue for intro and death animations
 		WIDTH = 9,		//screen WIDTH in <div> pixels
 		HEIGHT = 19,	//screen HEIGHT in <div> pixels
 		SP = 50,		//speed coefficient
-		SC = 25;		//score coefficient
+		SC = 25,		//score coefficient
+		delta = 50;
 	
 	/*intro animation snake bitmap*/
 	snek[0] = [2,3,6,18];
@@ -48,13 +51,6 @@
 			hiscore = parseInt(localStorage.getItem('hiscore'));
 		}
 	}
-/*
-	if (Storage.length !== 0) {
-		if (localStorage.hiscore > hiscore) hiscore = localStorage.hiscore;
-	} else {
-		localStorage.setItem("hiscore", hiscore);
-	}
-*/
 	//draw pixels on display
 	for (y = 0; y <= HEIGHT; y++) {
 		for (x = 0; x <= WIDTH; x++) {
@@ -72,6 +68,9 @@
 	 * and change direction before snake use it
 	 * (to prevent change to 180deg by fast change in 90deg twice)
 	 */
+	function turboSpeed() {
+	 	delta = 500;
+	}
 	$("#left").mousedown(function() {
 		if ( alive &&
 			 dir === 0 &&
@@ -81,6 +80,7 @@
 			 paused !== true
 			) {
 				dir = 3;
+				timer = setTimeout(turboSpeed, 400);
 			}
 	});
 
@@ -93,6 +93,7 @@
 			 paused !== true
 			) {
 				dir = 1;
+				timer = setTimeout(turboSpeed, 400);
 			}
 	});
 
@@ -105,6 +106,7 @@
 			 paused !== true
 			) {
 				dir = 4;
+				timer = setTimeout(turboSpeed, 400);
 			} //else if (level < 9) {level ++; speed++; scores();} 
 			  //increase speed & level before game
 	});
@@ -118,9 +120,9 @@
 			 paused !== true
 			) {
 				dir = 2;
+				timer = setTimeout(turboSpeed, 400);
 			} //else if (level > 1) {level --; speed--; scores();}
 			  //decrease speed & level before game
-	
 	});
 
 	$(".pause").mousedown(function() {
@@ -134,63 +136,91 @@
 		start();
 	});
 
+	$("#left, #right, #up, #down").mouseup(function() {
+		clearTimeout(timer);
+		delta = SP * speed;
+	});
+
 	/* use keyboard WASD and arrows to move,
 	 * ENTER for start and SPACEBAR for pause
 	 */
-	$("body").keydown(function(event) {
+	$(document).keydown(function(event) {
 		switch (event.which) {
 			case 39:
 			case 68:
-				$("#right").trigger("mousedown").attr("pressed", "true");
+				if (!key['right']) {
+					$("#right").mousedown().attr("pressed", "true");
+					key['right'] = true;
+				}
 				break;
 			case 37:
 			case 65:
-				$("#left").trigger("mousedown").attr("pressed", "true");
+				if (!key['left']) {
+					$("#left").mousedown().attr("pressed", "true");
+					key['left'] = true;
+				}
 				break;
 			case 38:
 			case 87:
-				$("#up").trigger("mousedown").attr("pressed", "true");
+				if (!key['up']) {
+					$("#up").mousedown().attr("pressed", "true");
+					key['up'] = true;
+				}
 				break;
 			case 40:
 			case 83:
-				$("#down").trigger("mousedown").attr("pressed", "true");
+				if (!key['down']) {
+					$("#down").mousedown().attr("pressed", "true");
+					key['down'] = true;
+				}
 				break;
 			case 13:
-				$(".start").trigger("mousedown").attr("pressed", "true");
+				if (!key['start']) {
+					$(".start").mousedown().attr("pressed", "true");
+					key['start'] = true;
+				}
 				break;
 			case 32:
-				$(".pause").mousedown().attr("pressed", "true");
+				if (!key['pause']) {
+					$(".pause").mousedown().attr("pressed", "true");
+					key['pause'] = true;
+				}
 				break;
-
 		}
 	});
 
-	$("body").keyup(function(event) {	//release keys on screen
+	$(document).keyup(function(event) {	//release keys on screen
 		switch (event.which) {
 			case 39:
 			case 68:
-				$("#right").attr("pressed", "");
+				$("#right").mouseup().attr("pressed", "");
+				//key['right'] = false;
 				break;
 			case 37:
 			case 65:
-				$("#left").attr("pressed", "");
+				$("#left").mouseup().attr("pressed", "");
+				//key['left'] = false;
 				break;
 			case 38:
 			case 87:
-				$("#up").attr("pressed", "");
+				$("#up").mouseup().attr("pressed", "");
+				//key['up'] = false;
 				break;
 			case 40:
 			case 83:
-				$("#down").attr("pressed", "");
+				$("#down").mouseup().attr("pressed", "");
+				//key['down'] = false;
 				break;
 			case 13:
-				$(".start").attr("pressed", "");
+				$(".start").mouseup().attr("pressed", "");
+				//key['start'] = false;
 				break;
 			case 32:
-				$(".pause").attr("pressed", "");
+				$(".pause").mouseup().attr("pressed", "");
+				//key['pause'] = false;
 				break;
-
 		}
+		key = {};
 	});
 
 	function scores() {	//refresh scores
@@ -216,7 +246,7 @@
 		$('#pause').css("color", "#313729").css("fill", "#313729");
 	}
 	function resume() {	//start game with existing parameters
-		game = setTimeout(play, 600 - (speed * SP));
+		game = setTimeout(play, 600 - delta);
 		$('#pause').css("color", "#7E916C").css("fill", "#7E916C");
 		paused = false;
 	}
@@ -444,7 +474,6 @@
 			last = snake.length - 1;
 			prel = snake.length - 2;
 			head = snake[last];
-
 		if (dir !== 0) d = dir;
 		//make new coordinates for head
 		if (d == 1) {coor.x = head.x + 1; coor.y = head.y; dir = 0;}
@@ -465,6 +494,20 @@
 				}
 		});
 
+		//border cross gameover
+		if (coor.x > WIDTH) {
+			gameOver(head.x, head.y);
+		}
+		if (coor.x < 0) {
+			gameOver(head.x, head.y);
+		}
+		if (coor.y > HEIGHT) {
+			gameOver(head.x, head.y);
+		}
+		if (coor.y < 0) {
+			gameOver(head.x, head.y);
+		}
+
 		//move tail to the next coordinates
 		snake.push(coor);
 
@@ -473,20 +516,6 @@
 			.attr("blink", "");
 		$("[x = '" + coor.x + "'][y = '" + coor.y + "']")
 			.attr("blink", "on");
-
-		//border cross gameover
-		if (coor.x > WIDTH) {
-			gameOver((snake[last].x - 1), snake[last].y);
-		}
-		if (coor.x < 0) {
-			gameOver((snake[last].x + 1), snake[last].y);
-		}
-		if (coor.y > HEIGHT) {
-			gameOver(snake[last].x, (snake[last].y - 1));
-		}
-		if (coor.y < 0) {
-			gameOver(snake[last].x, (snake[last].y + 1));
-		}
 
 		//grow if eating food, make new food
 		if (coor.x == food[0] && coor.y == food[1]) {
